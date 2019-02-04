@@ -29,7 +29,7 @@ namespace Elwark.Extensions.AspNet.Middlewares
 
     public static class CorrelationIdMiddlewareExtensions
     {
-        public static IApplicationBuilder UseCorrelationId(this IApplicationBuilder builder) =>
+        public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder) =>
             builder.UseMiddleware<CorrelationIdMiddleware>();
     }
 }

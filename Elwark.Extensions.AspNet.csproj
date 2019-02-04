@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Version>1.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>Elwark Extensions AspNet</Title>
-    <Authors>makhmutov.nail</Authors>
+    <Authors>Makhmutov Nail</Authors>
     <PackageProjectUrl>https://github.com/nmakhmutov/Elwark.Extensions.AspNet</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Elwark.Extensions" Version="1.0.1"/>
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>
