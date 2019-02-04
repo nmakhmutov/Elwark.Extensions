@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Elwark.Extensions.AspNet.Middlewares
 {
-    public class CorrelationIdMiddleware
+    internal class CorrelationIdMiddleware
     {
         private readonly RequestDelegate _next;
 

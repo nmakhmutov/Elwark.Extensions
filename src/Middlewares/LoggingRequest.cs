@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Elwark.Extensions.AspNet.Middlewares
 {
-    public class LoggingRequest
+    internal class LoggingRequest
     {
         private readonly ILogger<LoggingRequest> _logger;
         private readonly RequestDelegate _next;
@@ -23,26 +23,26 @@ namespace Elwark.Extensions.AspNet.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            using(var requestBodyStream = new MemoryStream())
+            using (var requestBodyStream = new MemoryStream())
             {
-                Stream originalRequestBody = context.Request.Body;
+                var originalRequestBody = context.Request.Body;
 
                 await context.Request.Body.CopyToAsync(requestBodyStream);
                 requestBodyStream.Seek(0, SeekOrigin.Begin);
 
-                using(var requestStream = new StreamReader(requestBodyStream))
+                using (var requestStream = new StreamReader(requestBodyStream))
                 {
-                    string requestBodyText = requestStream.ReadToEnd().NullIfEmpty();
+                    var requestBodyText = requestStream.ReadToEnd().NullIfEmpty();
 
                     var content = new StringBuilder();
                     content.AppendLine($"REQUEST URL: {context.Request.GetDisplayUrl()}");
                     content.AppendLine($"REQUEST METHOD: {context.Request.Method}");
                     content.AppendLine("HEADERS:");
-                    
+
                     var headers = context.Request.Headers.Where(x => !string.IsNullOrEmpty(x.Value));
-                    foreach(var header in headers)
+                    foreach (var header in headers)
                         content.AppendLine($"\t{header.Key}: {header.Value}");
-                    
+
                     content.Append($"REQUEST BODY: {requestBodyText ?? "NULL"}");
                     _logger.LogInformation(content.ToString());
 

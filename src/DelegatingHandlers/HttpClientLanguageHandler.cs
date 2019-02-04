@@ -11,7 +11,7 @@ namespace Elwark.Extensions.AspNet.DelegatingHandlers
             CancellationToken cancellationToken)
         {
             request.Headers.Add("language", CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-            
+
             return await base.SendAsync(request, cancellationToken);
         }
     }

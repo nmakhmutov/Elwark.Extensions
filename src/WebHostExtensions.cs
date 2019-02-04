@@ -12,7 +12,8 @@ namespace Elwark.Extensions.AspNet
         public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost) where TContext : DbContext =>
             MigrateDbContext<TContext>(webHost, (_, __) => { });
 
-        public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
+        public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost,
+            Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
             using (var scope = webHost.Services.CreateScope())
             {
@@ -33,7 +34,8 @@ namespace Elwark.Extensions.AspNet
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, $"An error occurred while migrating the database used on context {typeof(TContext).Name}");
+                    logger.LogError(ex,
+                        $"An error occurred while migrating the database used on context {typeof(TContext).Name}");
                 }
             }
 

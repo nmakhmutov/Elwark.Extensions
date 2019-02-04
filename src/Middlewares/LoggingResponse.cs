@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Elwark.Extensions.AspNet.Middlewares
 {
-    public class LoggingResponse
+    internal class LoggingResponse
     {
         private readonly ILogger<LoggingResponse> _logger;
         private readonly RequestDelegate _next;
