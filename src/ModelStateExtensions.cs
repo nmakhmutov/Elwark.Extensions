@@ -10,24 +10,24 @@ namespace Elwark.Extensions.AspNet
             ValidationProblemDetails problemDetails)
         {
             foreach (var error in problemDetails.Errors)
-            foreach (var value in error.Value)
-                modelsState.AddModelError(error.Key, value);
+                foreach (var value in error.Value)
+                    modelsState.AddModelError(error.Key, value);
         }
 
         public static void AddProblemDetails(this ModelStateDictionary modelsState,
             ValidationProblemDetails problemDetails, string key)
         {
             foreach (var error in problemDetails.Errors)
-            foreach (var value in error.Value)
-                modelsState.AddModelError(key, value);
+                foreach (var value in error.Value)
+                    modelsState.AddModelError(key, value);
         }
 
         public static void AddProblemDetails(this ModelStateDictionary modelsState,
             ValidationProblemDetails problemDetails, Func<string, string> converter)
         {
             foreach (var error in problemDetails.Errors)
-            foreach (var value in error.Value)
-                modelsState.AddModelError(converter(error.Key ?? string.Empty), value);
+                foreach (var value in error.Value)
+                    modelsState.AddModelError(converter(error.Key ?? string.Empty), value);
         }
     }
 }

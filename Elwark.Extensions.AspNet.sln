@@ -2,13 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{258FEB4F-C36C-4138-90A2-F9421FCED633}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0CC84F98-9B0E-488E-8FCB-73676CF5DDE9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elwark.Extensions.AspNet", "src\Elwark.Extensions.AspNet.csproj", "{C0DC076B-2278-40ED-95DC-837054483E9D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{32261C88-253F-45D0-A0F1-F09DF20C32F2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elwark.Extensions.AspNet.Example", "example\Elwark.Extensions.AspNet.Example\Elwark.Extensions.AspNet.Example.csproj", "{3989C793-5FFC-44D5-96DE-8DFCB1C5DE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,13 +14,8 @@ Global
 		{C0DC076B-2278-40ED-95DC-837054483E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0DC076B-2278-40ED-95DC-837054483E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0DC076B-2278-40ED-95DC-837054483E9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3989C793-5FFC-44D5-96DE-8DFCB1C5DE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3989C793-5FFC-44D5-96DE-8DFCB1C5DE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3989C793-5FFC-44D5-96DE-8DFCB1C5DE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3989C793-5FFC-44D5-96DE-8DFCB1C5DE0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C0DC076B-2278-40ED-95DC-837054483E9D} = {258FEB4F-C36C-4138-90A2-F9421FCED633}
-		{3989C793-5FFC-44D5-96DE-8DFCB1C5DE0D} = {32261C88-253F-45D0-A0F1-F09DF20C32F2}
 	EndGlobalSection
 EndGlobal
