@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Elwark.Extensions.AspNet.Middlewares
@@ -35,7 +34,7 @@ namespace Elwark.Extensions.AspNet.Middlewares
                     var responseBody = stream.ReadToEnd();
 
                     _logger.LogInformation("RESPONSE CONTENT FOR URL {url}:\n{@responseBody}",
-                        context.Request.GetDisplayUrl(), responseBody);
+                        context.Request.Path + context.Request.QueryString, responseBody);
 
                     responseBodyStream.Seek(0, SeekOrigin.Begin);
                     await responseBodyStream.CopyToAsync(bodyStream);

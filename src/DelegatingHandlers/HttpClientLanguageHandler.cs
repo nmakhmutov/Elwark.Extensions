@@ -7,10 +7,16 @@ namespace Elwark.Extensions.AspNet.DelegatingHandlers
 {
     public class HttpClientLanguageHandler : DelegatingHandler
     {
+        public HttpClientLanguageHandler()
+        {
+            InnerHandler = new HttpClientHandler();
+        }
+
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            request.Headers.Add("language", CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            if (!CultureInfo.CurrentCulture.IsNeutralCulture)
+                request.Headers.Add("language", CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
             return await base.SendAsync(request, cancellationToken);
         }

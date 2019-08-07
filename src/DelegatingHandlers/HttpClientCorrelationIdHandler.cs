@@ -10,8 +10,11 @@ namespace Elwark.Extensions.AspNet.DelegatingHandlers
     {
         private readonly HttpContext _httpContext;
 
-        public HttpClientCorrelationIdHandler(IHttpContextAccessor accessor) =>
+        public HttpClientCorrelationIdHandler(IHttpContextAccessor accessor)
+        {
             _httpContext = accessor?.HttpContext ?? throw new ArgumentNullException(nameof(accessor));
+            InnerHandler = new HttpClientHandler();
+        }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)

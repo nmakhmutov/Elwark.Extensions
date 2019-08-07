@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Elwark.Extensions.AspNet.Middlewares
@@ -35,7 +34,7 @@ namespace Elwark.Extensions.AspNet.Middlewares
                     var requestBodyText = requestStream.ReadToEnd().NullIfEmpty();
 
                     var content = new StringBuilder();
-                    content.AppendLine($"REQUEST URL: {context.Request.GetDisplayUrl()}");
+                    content.AppendLine($"REQUEST URL: {context.Request.Path + context.Request.QueryString}");
                     content.AppendLine($"REQUEST METHOD: {context.Request.Method}");
                     content.AppendLine("HEADERS:");
 
