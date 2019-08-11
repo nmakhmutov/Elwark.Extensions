@@ -8,19 +8,20 @@ namespace Elwark.Extensions.AspNet.DelegatingHandlers
 {
     public class HttpClientCorrelationIdHandler : DelegatingHandler
     {
-        private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HttpClientCorrelationIdHandler(IHttpContextAccessor accessor)
-        {
-            _httpContext = accessor?.HttpContext ?? throw new ArgumentNullException(nameof(accessor));
-            InnerHandler = new HttpClientHandler();
-        }
+        public HttpClientCorrelationIdHandler(IHttpContextAccessor accessor) =>
+            _httpContextAccessor = accessor;
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            request.Headers.Add("X-Correlation-Id", _httpContext.TraceIdentifier);
-
+            var value = _httpContextAccessor.HttpContext.TraceIdentifier.NullIfEmpty() != null
+                ? _httpContextAccessor.HttpContext.TraceIdentifier
+                : Guid.NewGuid().ToString("D");
+            
+                request.Headers.Add("X-Correlation-Id", value);
+            
             return await base.SendAsync(request, cancellationToken);
         }
     }

@@ -13,7 +13,6 @@ namespace Elwark.Extensions.AspNet.DelegatingHandlers
         public HttpClientLoggingDelegatingHandler(ILogger<HttpClientLoggingDelegatingHandler> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            InnerHandler = new HttpClientHandler();
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
