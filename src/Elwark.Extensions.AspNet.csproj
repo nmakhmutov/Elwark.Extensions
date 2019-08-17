@@ -8,12 +8,15 @@
     <PackageProjectUrl>https://github.com/nmakhmutov/Elwark.Extensions.AspNet</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Elwark.Extensions" Version="1.0.2" />
+<!--    <PackageReference Include="Elwark.Extensions" Version="1.0.2" />-->
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview8.19405.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview8.19405.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.0-preview8.19405.11" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0-preview8.19405.3" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.0.0-preview8.19405.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Elwark.Extensions\Elwark.Extensions.csproj" />
   </ItemGroup>
 </Project>
