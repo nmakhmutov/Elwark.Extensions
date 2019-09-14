@@ -19,4 +19,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Elwark.Extensions\Elwark.Extensions.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.NETCore.App.Ref\3.0.0-preview8-28405-07\ref\netcoreapp3.0\System.Net.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
