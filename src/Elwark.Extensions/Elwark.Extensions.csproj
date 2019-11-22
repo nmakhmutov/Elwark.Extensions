@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Elwark Extensions</Title>
+    <Description>Extension for Elwark projects</Description>
+    <PackageProjectUrl>https://github.com/nmakhmutov/Elwark.Extensions</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Elwark.Extensions</PackageId>
+    <Version>1.0.2</Version>
+    <Authors>Makhmutov.Nail</Authors>
+    <Company>Elwark</Company>
+  </PropertyGroup>
+</Project>

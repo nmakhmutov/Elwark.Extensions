@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{258FEB4F-C36C-4138-90A2-F9421FCED633}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elwark.Extensions", "src\Elwark.Extensions\Elwark.Extensions.csproj", "{35775813-BEFC-41B8-BF89-7B69E8BCA523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elwark.Extensions.AspNet", "src\Elwark.Extensions.AspNet\Elwark.Extensions.AspNet.csproj", "{7A53A33B-FD91-49EA-BCEE-2A23D36A493A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35775813-BEFC-41B8-BF89-7B69E8BCA523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35775813-BEFC-41B8-BF89-7B69E8BCA523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35775813-BEFC-41B8-BF89-7B69E8BCA523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35775813-BEFC-41B8-BF89-7B69E8BCA523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A53A33B-FD91-49EA-BCEE-2A23D36A493A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A53A33B-FD91-49EA-BCEE-2A23D36A493A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A53A33B-FD91-49EA-BCEE-2A23D36A493A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A53A33B-FD91-49EA-BCEE-2A23D36A493A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35775813-BEFC-41B8-BF89-7B69E8BCA523} = {258FEB4F-C36C-4138-90A2-F9421FCED633}
+		{7A53A33B-FD91-49EA-BCEE-2A23D36A493A} = {258FEB4F-C36C-4138-90A2-F9421FCED633}
+	EndGlobalSection
+EndGlobal
