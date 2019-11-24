@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8DB0A4C5-9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elwark.Extensions.AspNet.Test", "test\Elwark.Extensions.AspNet.Test\Elwark.Extensions.AspNet.Test.csproj", "{7962E39F-9712-496F-BC7B-28F9824658C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{4F98311C-4649-455E-BDB2-F9795464AAB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elwark.Extension.Sample", "sample\Elwark.Extension.Sample\Elwark.Extension.Sample.csproj", "{D69CEDDD-CD1F-4EB4-8B30-4CC61FB9CA7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,10 +32,15 @@ Global
 		{7962E39F-9712-496F-BC7B-28F9824658C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7962E39F-9712-496F-BC7B-28F9824658C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7962E39F-9712-496F-BC7B-28F9824658C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D69CEDDD-CD1F-4EB4-8B30-4CC61FB9CA7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D69CEDDD-CD1F-4EB4-8B30-4CC61FB9CA7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D69CEDDD-CD1F-4EB4-8B30-4CC61FB9CA7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D69CEDDD-CD1F-4EB4-8B30-4CC61FB9CA7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{35775813-BEFC-41B8-BF89-7B69E8BCA523} = {258FEB4F-C36C-4138-90A2-F9421FCED633}
 		{7A53A33B-FD91-49EA-BCEE-2A23D36A493A} = {258FEB4F-C36C-4138-90A2-F9421FCED633}
 		{7962E39F-9712-496F-BC7B-28F9824658C4} = {8DB0A4C5-9DEC-4EE9-A128-A826E6B5BD84}
+		{D69CEDDD-CD1F-4EB4-8B30-4CC61FB9CA7A} = {4F98311C-4649-455E-BDB2-F9795464AAB8}
 	EndGlobalSection
 EndGlobal
