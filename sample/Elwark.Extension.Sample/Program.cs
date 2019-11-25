@@ -13,6 +13,14 @@ namespace Elwark.Extension.Sample
                 {
                     logger.Information($"Allowed hosts: {configuration.GetValue<string>("AllowedHosts")}");
                 })
+                .PreRunBehaviorAsync(async (host, configuration, logger) =>
+                {
+                    logger.Debug("Before delay");
+                    
+                    await Task.Delay(1000);
+                    
+                    logger.Debug("After delay");
+                })
                 .RunAsync();
     }
 }

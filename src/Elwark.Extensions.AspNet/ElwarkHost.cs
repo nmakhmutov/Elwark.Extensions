@@ -77,10 +77,28 @@ namespace Elwark.Extensions.AspNet
 
         public ElwarkHost PreRunBehavior(Action<IHost, IConfiguration, ILogger> behavior)
         {
+            if (behavior == null) 
+                throw new ArgumentNullException(nameof(behavior));
+            
             if (_host is null)
                 throw new ArgumentException("Host is null. Create host before run pre run behavior");
 
             behavior(_host, _configuration, _logger);
+
+            return this;
+        }
+        
+        public ElwarkHost PreRunBehaviorAsync(Func<IHost, IConfiguration, ILogger, Task> behavior)
+        {
+            if (behavior == null) 
+                throw new ArgumentNullException(nameof(behavior));
+            
+            if (_host is null)
+                throw new ArgumentException("Host is null. Create host before run pre run behavior");
+
+            Task.Run(() => behavior(_host, _configuration, _logger))
+                .GetAwaiter()
+                .GetResult();
 
             return this;
         }
