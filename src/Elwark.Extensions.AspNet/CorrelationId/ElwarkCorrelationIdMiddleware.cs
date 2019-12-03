@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Elwark.Extensions.AspNet.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
@@ -9,9 +8,9 @@ namespace Elwark.Extensions.AspNet.CorrelationId
     internal class ElwarkCorrelationIdMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly CorrelationIdOptions _options;
+        private readonly ElwarkCorrelationIdOptions _options;
 
-        public ElwarkCorrelationIdMiddleware(RequestDelegate next, IOptions<CorrelationIdOptions> options)
+        public ElwarkCorrelationIdMiddleware(RequestDelegate next, IOptions<ElwarkCorrelationIdOptions> options)
         {
             _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
             _next = next ?? throw new ArgumentNullException(nameof(next));

@@ -1,5 +1,4 @@
 using System;
-using Elwark.Extensions.AspNet.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,9 +7,9 @@ namespace Elwark.Extensions.AspNet.CorrelationId
     public static class ElwarkCorrelationIdExtensions
     {
         public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder) =>
-            builder.UseElwarkCorrelationId(new CorrelationIdOptions());
+            builder.UseElwarkCorrelationId(new ElwarkCorrelationIdOptions());
 
-        public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder, CorrelationIdOptions options)
+        public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder, ElwarkCorrelationIdOptions options)
         {
             if (builder is null)
                 throw new ArgumentNullException(nameof(builder));
@@ -26,14 +25,14 @@ namespace Elwark.Extensions.AspNet.CorrelationId
             if (services == null) 
                 throw new ArgumentNullException(nameof(services));
             
-            services.AddOptions<CorrelationIdOptions>()
+            services.AddOptions<ElwarkCorrelationIdOptions>()
                 .ValidateDataAnnotations();
 
             return services.AddTransient<ElwarkHttpClientCorrelationIdHandler>();
         }
         
         public static IServiceCollection ConfigureElwarkCorrelationIdHttpMessageHandler(this IServiceCollection services,
-            Action<CorrelationIdOptions> options)
+            Action<ElwarkCorrelationIdOptions> options)
         {
             if (services == null) 
                 throw new ArgumentNullException(nameof(services));
@@ -41,7 +40,7 @@ namespace Elwark.Extensions.AspNet.CorrelationId
             if (options == null) 
                 throw new ArgumentNullException(nameof(options));
             
-            services.AddOptions<CorrelationIdOptions>()
+            services.AddOptions<ElwarkCorrelationIdOptions>()
                 .Configure(options)
                 .ValidateDataAnnotations();
 
