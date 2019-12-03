@@ -5,7 +5,7 @@ namespace Elwark.Extensions.AspNet.HttpClientServiceName
 {
     public static class ElwarkHttpClientServiceNameExtensions
     {
-        public static IServiceCollection AddElwarkHttpClientServiceName(this IServiceCollection services,
+        public static IServiceCollection ConfigureElwarkHttpClientServiceName(this IServiceCollection services,
             Action<ElwarkHttpClientServiceNameOptions> options)
         {
             if (options is null)
@@ -18,7 +18,7 @@ namespace Elwark.Extensions.AspNet.HttpClientServiceName
             return services.AddTransient<ElwarkHttpClientServiceNameHandler>();
         }
 
-        public static IHttpClientBuilder AddElwarkServiceName(this IHttpClientBuilder builder) =>
+        public static IHttpClientBuilder AddElwarkServiceNameHttpMessageHandler(this IHttpClientBuilder builder) =>
             builder.AddHttpMessageHandler<ElwarkHttpClientServiceNameHandler>();
     }
 }

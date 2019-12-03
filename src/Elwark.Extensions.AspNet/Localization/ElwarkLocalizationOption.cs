@@ -2,13 +2,13 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Elwark.Extensions.AspNet.Options
+namespace Elwark.Extensions.AspNet.Localization
 {
-    public class LanguageOption
+    public class ElwarkLocalizationOption
     {
-        public LanguageOption(){}
+        public ElwarkLocalizationOption(){}
         
-        public LanguageOption(
+        public ElwarkLocalizationOption(
             [NotNull] CultureInfo @default,
             [NotNull] CultureInfo[] languages,
             [NotNull] string parameterName)

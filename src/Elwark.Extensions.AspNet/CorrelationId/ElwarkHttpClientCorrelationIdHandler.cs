@@ -22,12 +22,11 @@ namespace Elwark.Extensions.AspNet.CorrelationId
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            var value = _options.UseTraceIdentified
-                ? _httpContextAccessor.HttpContext.TraceIdentifier.NullIfEmpty() != null
-                    ? _httpContextAccessor.HttpContext.TraceIdentifier
-                    : _options.CorrelationIdGenerator()
+            var value = _options.UseTraceIdentified &&
+                        _httpContextAccessor.HttpContext?.TraceIdentifier.NullIfEmpty() != null
+                ? _httpContextAccessor.HttpContext.TraceIdentifier
                 : _options.CorrelationIdGenerator();
-
+            
             request.Headers.Add(_options.HeaderName, value);
 
             return await base.SendAsync(request, cancellationToken);

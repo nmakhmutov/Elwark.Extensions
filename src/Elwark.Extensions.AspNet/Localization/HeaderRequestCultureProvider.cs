@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
-namespace Elwark.Extensions.AspNet.RequestProviders
+namespace Elwark.Extensions.AspNet.Localization
 {
-    public class ElwarkHeaderRequestCultureProvider : IRequestCultureProvider
+    internal class ElwarkHeaderRequestCultureProvider : IRequestCultureProvider
     {
         private readonly string _headerName;
         private readonly IReadOnlyCollection<string> _supportedCultures;

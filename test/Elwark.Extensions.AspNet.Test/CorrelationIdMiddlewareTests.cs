@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Elwark.Extensions.AspNet.CorrelationId;
-using Elwark.Extensions.AspNet.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Xunit;
@@ -19,7 +18,7 @@ namespace Elwark.Extensions.AspNet.Test
 
             var response = await server.CreateClient().GetAsync("");
 
-            var expectedHeaderName = new CorrelationIdOptions().HeaderName;
+            var expectedHeaderName = new ElwarkHttpClientCorrelationIdOptions().HeaderName;
 
             var header = response.Headers.GetValues(expectedHeaderName);
 
