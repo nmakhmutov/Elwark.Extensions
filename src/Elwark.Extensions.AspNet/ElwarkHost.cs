@@ -33,9 +33,9 @@ namespace Elwark.Extensions.AspNet
                 .MinimumLevel.Verbose()
                 .Enrich.WithProperty("ApplicationContext", appName)
                 .Enrich.FromLogContext()
-                .WriteTo.LiterateConsole(
+                .WriteTo.Console(
                     outputTemplate:
-                    "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {RequestId} {SourceContext:lj}{NewLine}{Message:lj}{NewLine}{Exception}"
+                    "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {ApplicationContext} {RequestId} {SourceContext:lj}{NewLine}{Message:lj}{NewLine}{Exception}"
                 )
                 .ReadFrom.Configuration(_configuration)
                 .CreateLogger();

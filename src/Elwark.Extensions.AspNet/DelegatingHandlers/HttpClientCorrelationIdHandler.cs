@@ -19,9 +19,9 @@ namespace Elwark.Extensions.AspNet.DelegatingHandlers
             var value = _httpContextAccessor.HttpContext.TraceIdentifier.NullIfEmpty() != null
                 ? _httpContextAccessor.HttpContext.TraceIdentifier
                 : Guid.NewGuid().ToString("D");
-            
-                request.Headers.Add("X-Correlation-Id", value);
-            
+
+            request.Headers.Add("X-Correlation-Id", value);
+
             return await base.SendAsync(request, cancellationToken);
         }
     }
