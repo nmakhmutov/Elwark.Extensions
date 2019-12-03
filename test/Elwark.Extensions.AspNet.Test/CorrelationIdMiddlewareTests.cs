@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Elwark.Extensions.AspNet.HttpClientCorrelationId;
+using Elwark.Extensions.AspNet.CorrelationId;
 using Elwark.Extensions.AspNet.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;

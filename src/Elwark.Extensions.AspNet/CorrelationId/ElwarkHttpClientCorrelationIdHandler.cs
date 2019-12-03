@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace Elwark.Extensions.AspNet.HttpClientCorrelationId
+namespace Elwark.Extensions.AspNet.CorrelationId
 {
     internal class ElwarkHttpClientCorrelationIdHandler : DelegatingHandler
     {

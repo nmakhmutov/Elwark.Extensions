@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Elwark.Extensions.AspNet.HttpClientCorrelationId
+namespace Elwark.Extensions.AspNet.CorrelationId
 {
     public class ElwarkHttpClientCorrelationIdOptions
     {
