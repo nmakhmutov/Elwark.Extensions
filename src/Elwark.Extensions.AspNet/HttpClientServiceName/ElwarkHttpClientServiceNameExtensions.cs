@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Elwark.Extensions.AspNet.HttpClientServiceName
 {
-    public static class ElwarkHttpClientServiceNameHandlerExtensions
+    public static class ElwarkHttpClientServiceNameExtensions
     {
         public static IServiceCollection AddElwarkHttpClientServiceName(this IServiceCollection services,
             Action<ElwarkHttpClientServiceNameOptions> options)
