@@ -25,14 +25,14 @@ namespace Elwark.Extensions.AspNet.CorrelationId
             if (services == null) 
                 throw new ArgumentNullException(nameof(services));
             
-            services.AddOptions<ElwarkCorrelationIdOptions>()
+            services.AddOptions<ElwarkHttpClientCorrelationIdOptions>()
                 .ValidateDataAnnotations();
 
             return services.AddTransient<ElwarkHttpClientCorrelationIdHandler>();
         }
         
         public static IServiceCollection ConfigureElwarkCorrelationIdHttpMessageHandler(this IServiceCollection services,
-            Action<ElwarkCorrelationIdOptions> options)
+            Action<ElwarkHttpClientCorrelationIdOptions> options)
         {
             if (services == null) 
                 throw new ArgumentNullException(nameof(services));
@@ -40,7 +40,7 @@ namespace Elwark.Extensions.AspNet.CorrelationId
             if (options == null) 
                 throw new ArgumentNullException(nameof(options));
             
-            services.AddOptions<ElwarkCorrelationIdOptions>()
+            services.AddOptions<ElwarkHttpClientCorrelationIdOptions>()
                 .Configure(options)
                 .ValidateDataAnnotations();
 

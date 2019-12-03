@@ -12,16 +12,23 @@ namespace Elwark.Extensions.AspNet.Localization
 
             return services.AddTransient<HttpClientLanguageHandler>();
         }
-        
-        public static IServiceCollection AddElwarkLanguageHandler(this IServiceCollection services, Action<ElwarkHttpClientLanguageOptions> options)
+
+        public static IServiceCollection ConfigureElwarkLanguageHandler(this IServiceCollection services,
+            Action<ElwarkHttpClientLanguageOptions> options)
         {
+            if (services == null)
+                throw new ArgumentNullException(nameof(services));
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             services.AddOptions<ElwarkHttpClientLanguageOptions>()
                 .Configure(options)
                 .ValidateDataAnnotations();
 
             return services.AddTransient<HttpClientLanguageHandler>();
         }
-        
+
         public static IHttpClientBuilder AddElwarkLanguageHttpMessageHandler(this IHttpClientBuilder builder)
         {
             return builder.AddHttpMessageHandler<HttpClientLanguageHandler>();

@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Threading.Tasks;
 using Elwark.Extensions.AspNet.CorrelationId;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,22 @@ namespace Elwark.Extensions.AspNet.Test
             var expectedHeaderName = new ElwarkHttpClientCorrelationIdOptions().HeaderName;
 
             var header = response.Headers.GetValues(expectedHeaderName);
+
+            Assert.NotNull(header);
+        }
+
+        [Fact]
+        public async Task ReturnsCorrelationIdInResponseHeader_WithCustomHeaderName()
+        {
+            var headerName = "custom-header-name";
+            var builder = new WebHostBuilder()
+                .Configure(app => app.UseElwarkCorrelationId(new ElwarkCorrelationIdOptions {HeaderName = headerName}));
+
+            var server = new TestServer(builder);
+
+            var response = await server.CreateClient().GetAsync("");
+
+            var header = response.Headers.GetValues(headerName);
 
             Assert.NotNull(header);
         }
