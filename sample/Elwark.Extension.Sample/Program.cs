@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
-using Elwark.Extensions.AspNet;
+using Elwark.Extensions.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 
 namespace Elwark.Extension.Sample
 {
     public static class Program
     {
         public static async Task Main(string[] args) =>
-            await new ElwarkHost("Example", args)
+            await new ElwarkHostBuilder("Example", args)
                 .CreateHost<Startup>()
                 .PreRunBehavior((host1, configuration, logger) =>
                 {
