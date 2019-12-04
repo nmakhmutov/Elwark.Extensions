@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Elwark.Extensions.AspNet.CorrelationId
 {
@@ -9,7 +10,8 @@ namespace Elwark.Extensions.AspNet.CorrelationId
         public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder) =>
             builder.UseElwarkCorrelationId(new ElwarkCorrelationIdOptions());
 
-        public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder, ElwarkCorrelationIdOptions options)
+        public static IApplicationBuilder UseElwarkCorrelationId(this IApplicationBuilder builder,
+            ElwarkCorrelationIdOptions options)
         {
             if (builder is null)
                 throw new ArgumentNullException(nameof(builder));
@@ -17,41 +19,41 @@ namespace Elwark.Extensions.AspNet.CorrelationId
             if (options is null)
                 throw new ArgumentNullException(nameof(options));
 
-            return builder.UseMiddleware<ElwarkCorrelationIdMiddleware>(Microsoft.Extensions.Options.Options.Create(options));
+            return builder.UseMiddleware<ElwarkCorrelationIdMiddleware>(Options.Create(options));
         }
 
-        public static IServiceCollection ConfigureElwarkCorrelationIdHttpMessageHandler(this IServiceCollection services)
+        public static IServiceCollection ConfigureElwarkHttpClientCorrelationId(this IServiceCollection services)
         {
-            if (services == null) 
+            if (services == null)
                 throw new ArgumentNullException(nameof(services));
-            
+
             services.AddOptions<ElwarkHttpClientCorrelationIdOptions>()
                 .ValidateDataAnnotations();
 
             return services.AddTransient<ElwarkHttpClientCorrelationIdHandler>();
         }
-        
-        public static IServiceCollection ConfigureElwarkCorrelationIdHttpMessageHandler(this IServiceCollection services,
+
+        public static IServiceCollection ConfigureElwarkHttpClientCorrelationId(this IServiceCollection services,
             Action<ElwarkHttpClientCorrelationIdOptions> options)
         {
-            if (services == null) 
+            if (services == null)
                 throw new ArgumentNullException(nameof(services));
-            
-            if (options == null) 
+
+            if (options == null)
                 throw new ArgumentNullException(nameof(options));
-            
+
             services.AddOptions<ElwarkHttpClientCorrelationIdOptions>()
                 .Configure(options)
                 .ValidateDataAnnotations();
 
             return services.AddTransient<ElwarkHttpClientCorrelationIdHandler>();
         }
-        
+
         public static IHttpClientBuilder AddElwarkCorrelationIdHttpMessageHandler(this IHttpClientBuilder builder)
         {
-            if (builder == null) 
+            if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
-            
+
             return builder.AddHttpMessageHandler<ElwarkHttpClientCorrelationIdHandler>();
         }
     }

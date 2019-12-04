@@ -13,8 +13,8 @@ namespace Elwark.Extensions.AspNet
         private readonly string _appName;
         private readonly string[] _args;
         private IConfiguration _configuration;
-        private ILogger _logger;
         private IHost? _host;
+        private ILogger _logger;
 
         public ElwarkHost(string appName, string[] args)
         {
@@ -24,8 +24,8 @@ namespace Elwark.Extensions.AspNet
 
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{env}.json", true, true)
                 .AddEnvironmentVariables()
                 .Build();
 
@@ -57,9 +57,9 @@ namespace Elwark.Extensions.AspNet
             where TStartup : class
         {
             Log.Logger = _logger;
-            
+
             Log.Information("Configuring web host ({ApplicationContext})...", _appName);
-            
+
             _host = Host.CreateDefaultBuilder(_args)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureWebHostDefaults(builder =>
@@ -71,15 +71,15 @@ namespace Elwark.Extensions.AspNet
                 .Build();
 
             Log.Information("Web host ({ApplicationContext}) has configured", _appName);
-            
+
             return this;
         }
 
         public ElwarkHost PreRunBehavior(Action<IHost, IConfiguration, ILogger> behavior)
         {
-            if (behavior == null) 
+            if (behavior == null)
                 throw new ArgumentNullException(nameof(behavior));
-            
+
             if (_host is null)
                 throw new ArgumentException("Host is null. Create host before run pre run behavior");
 
@@ -87,12 +87,12 @@ namespace Elwark.Extensions.AspNet
 
             return this;
         }
-        
+
         public ElwarkHost PreRunBehaviorAsync(Func<IHost, IConfiguration, ILogger, Task> behavior)
         {
-            if (behavior == null) 
+            if (behavior == null)
                 throw new ArgumentNullException(nameof(behavior));
-            
+
             if (_host is null)
                 throw new ArgumentException("Host is null. Create host before run pre run behavior");
 

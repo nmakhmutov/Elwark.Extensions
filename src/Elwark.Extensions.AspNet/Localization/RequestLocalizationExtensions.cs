@@ -10,12 +10,14 @@ namespace Elwark.Extensions.AspNet.Localization
             ElwarkLocalizationOption elwarkLocalization) =>
             builder.UseRequestLocalization(options =>
             {
-                options.DefaultRequestCulture = new RequestCulture(elwarkLocalization.Default, elwarkLocalization.Default);
+                options.DefaultRequestCulture =
+                    new RequestCulture(elwarkLocalization.Default, elwarkLocalization.Default);
                 options.SupportedCultures = elwarkLocalization.Languages;
                 options.SupportedUICultures = elwarkLocalization.Languages;
                 options.RequestCultureProviders = new List<IRequestCultureProvider>
                 {
-                    new ElwarkHeaderRequestCultureProvider(elwarkLocalization.Languages, elwarkLocalization.ParameterName),
+                    new ElwarkHeaderRequestCultureProvider(elwarkLocalization.Languages,
+                        elwarkLocalization.ParameterName),
                     new QueryStringRequestCultureProvider
                     {
                         QueryStringKey = elwarkLocalization.ParameterName,

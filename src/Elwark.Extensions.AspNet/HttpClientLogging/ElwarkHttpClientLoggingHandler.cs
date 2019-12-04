@@ -12,13 +12,15 @@ namespace Elwark.Extensions.AspNet.HttpClientLogging
         private readonly ILogger<ElwarkHttpClientLoggingHandler> _logger;
         private readonly ElwarkHttpClientLoggingOptions _options;
 
-        public ElwarkHttpClientLoggingHandler(ILogger<ElwarkHttpClientLoggingHandler> logger, IOptions<ElwarkHttpClientLoggingOptions> options)
+        public ElwarkHttpClientLoggingHandler(ILogger<ElwarkHttpClientLoggingHandler> logger,
+            IOptions<ElwarkHttpClientLoggingOptions> options)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             if (_options.IsLoggingRequest)
             {

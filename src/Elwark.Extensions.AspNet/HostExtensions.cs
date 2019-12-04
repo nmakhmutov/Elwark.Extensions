@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,9 +32,9 @@ namespace Elwark.Extensions.AspNet
                     logger.LogInformation("Migrated database associated with context {DbContextName}", contextName);
 
                     logger.LogInformation("Seeding database with context {DbContextName}", contextName);
-                    
+
                     seeder(context, services);
-                    
+
                     logger.LogInformation("Seeded database with context {DbContextName}", contextName);
                 }
                 catch (Exception ex)

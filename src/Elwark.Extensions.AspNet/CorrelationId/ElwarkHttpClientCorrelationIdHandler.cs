@@ -9,8 +9,8 @@ namespace Elwark.Extensions.AspNet.CorrelationId
 {
     internal class ElwarkHttpClientCorrelationIdHandler : DelegatingHandler
     {
-        private readonly ElwarkHttpClientCorrelationIdOptions _options;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ElwarkHttpClientCorrelationIdOptions _options;
 
         public ElwarkHttpClientCorrelationIdHandler(IHttpContextAccessor accessor,
             IOptions<ElwarkHttpClientCorrelationIdOptions> options)
@@ -26,7 +26,7 @@ namespace Elwark.Extensions.AspNet.CorrelationId
                         _httpContextAccessor.HttpContext?.TraceIdentifier.NullIfEmpty() != null
                 ? _httpContextAccessor.HttpContext.TraceIdentifier
                 : _options.CorrelationIdGenerator();
-            
+
             request.Headers.Add(_options.HeaderName, value);
 
             return await base.SendAsync(request, cancellationToken);

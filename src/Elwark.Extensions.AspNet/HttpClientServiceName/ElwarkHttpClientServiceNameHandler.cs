@@ -9,11 +9,9 @@ namespace Elwark.Extensions.AspNet.HttpClientServiceName
     internal class ElwarkHttpClientServiceNameHandler : DelegatingHandler
     {
         private readonly ElwarkHttpClientServiceNameOptions _options;
-        
-        public ElwarkHttpClientServiceNameHandler(IOptions<ElwarkHttpClientServiceNameOptions> options)
-        {
+
+        public ElwarkHttpClientServiceNameHandler(IOptions<ElwarkHttpClientServiceNameOptions> options) =>
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
-        }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)

@@ -20,7 +20,7 @@ namespace Elwark.Extensions.AspNet.Test
                 .ConfigureServices(services =>
                 {
                     services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()
-                        .ConfigureElwarkCorrelationIdHttpMessageHandler();
+                        .ConfigureElwarkHttpClientCorrelationId();
                     
                     services.AddHttpClient<ITestHttpClient, TestHttpClient>()
                         .AddElwarkCorrelationIdHttpMessageHandler();
@@ -45,7 +45,7 @@ namespace Elwark.Extensions.AspNet.Test
                 .ConfigureServices(services =>
                 {
                     services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()
-                        .ConfigureElwarkCorrelationIdHttpMessageHandler(options => options.HeaderName = headerName);
+                        .ConfigureElwarkHttpClientCorrelationId(options => options.HeaderName = headerName);
                     
                     services.AddHttpClient<ITestHttpClient, TestHttpClient>()
                         .AddElwarkCorrelationIdHttpMessageHandler();
@@ -72,7 +72,7 @@ namespace Elwark.Extensions.AspNet.Test
                 .ConfigureServices(services =>
                 {
                     services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()
-                        .ConfigureElwarkCorrelationIdHttpMessageHandler(options => options.CorrelationIdGenerator = () => headerValue);
+                        .ConfigureElwarkHttpClientCorrelationId(options => options.CorrelationIdGenerator = () => headerValue);
                     
                     services.AddHttpClient<ITestHttpClient, TestHttpClient>()
                         .AddElwarkCorrelationIdHttpMessageHandler();

@@ -6,8 +6,10 @@ namespace Elwark.Extensions.AspNet.Localization
 {
     public class ElwarkLocalizationOption
     {
-        public ElwarkLocalizationOption(){}
-        
+        public ElwarkLocalizationOption()
+        {
+        }
+
         public ElwarkLocalizationOption(
             [NotNull] CultureInfo @default,
             [NotNull] CultureInfo[] languages,

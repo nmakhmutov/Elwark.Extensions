@@ -5,7 +5,7 @@ namespace Elwark.Extensions.AspNet.Localization
 {
     public static class HttpClientLanguageExtensions
     {
-        public static IServiceCollection ConfigureElwarkLanguageHandler(this IServiceCollection services)
+        public static IServiceCollection ConfigureElwarkHttpClientLanguage(this IServiceCollection services)
         {
             services.AddOptions<ElwarkHttpClientLanguageOptions>()
                 .ValidateDataAnnotations();
@@ -13,7 +13,7 @@ namespace Elwark.Extensions.AspNet.Localization
             return services.AddTransient<HttpClientLanguageHandler>();
         }
 
-        public static IServiceCollection ConfigureElwarkLanguageHandler(this IServiceCollection services,
+        public static IServiceCollection ConfigureElwarkHttpClientLanguage(this IServiceCollection services,
             Action<ElwarkHttpClientLanguageOptions> options)
         {
             if (services == null)
@@ -29,9 +29,7 @@ namespace Elwark.Extensions.AspNet.Localization
             return services.AddTransient<HttpClientLanguageHandler>();
         }
 
-        public static IHttpClientBuilder AddElwarkLanguageHttpMessageHandler(this IHttpClientBuilder builder)
-        {
-            return builder.AddHttpMessageHandler<HttpClientLanguageHandler>();
-        }
+        public static IHttpClientBuilder AddElwarkLanguageHttpMessageHandler(this IHttpClientBuilder builder) =>
+            builder.AddHttpMessageHandler<HttpClientLanguageHandler>();
     }
 }

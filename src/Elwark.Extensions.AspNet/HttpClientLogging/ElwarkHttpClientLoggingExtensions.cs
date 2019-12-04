@@ -11,8 +11,9 @@ namespace Elwark.Extensions.AspNet.HttpClientLogging
 
             return services.AddTransient<ElwarkHttpClientLoggingHandler>();
         }
-        
-        public static IServiceCollection ConfigureElwarkHttpClientLogging(this IServiceCollection services, Action<ElwarkHttpClientLoggingOptions> options)
+
+        public static IServiceCollection ConfigureElwarkHttpClientLogging(this IServiceCollection services,
+            Action<ElwarkHttpClientLoggingOptions> options)
         {
             services.AddOptions<ElwarkHttpClientLoggingOptions>()
                 .Configure(options);
