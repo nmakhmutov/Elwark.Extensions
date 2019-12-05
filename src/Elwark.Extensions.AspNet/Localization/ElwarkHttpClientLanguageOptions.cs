@@ -7,7 +7,7 @@ namespace Elwark.Extensions.AspNet.Localization
     public class ElwarkHttpClientLanguageOptions
     {
         [Required]
-        public string HeaderName { get; set; } = "language";
+        public string HeaderName { get; set; } = "Language";
 
         [Required]
         public Func<string> LanguageGenerator { get; set; } = () => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
