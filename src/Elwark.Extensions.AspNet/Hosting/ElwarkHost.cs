@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,26 +19,37 @@ namespace Elwark.Extensions.AspNet.Hosting
         private readonly string _appName;
 
         public ElwarkHost([NotNull] string appName, [NotNull] string[] args, [NotNull] IConfiguration configuration,
-            [NotNull] ILogger logger)
+            [NotNull] ILogger logger, [NotNull] Action<IHostBuilder, IConfiguration, ILogger>[] uses)
         {
             _appName = appName;
             _configuration = configuration;
             _logger = logger;
             Log.Logger = _logger;
 
-            _logger.Information("Configuring web host ({ApplicationContext})...", _appName);
+            _logger.Information("Configuring base web host ({ApplicationContext})...", _appName);
 
-            _host = Host.CreateDefaultBuilder(args)
+            var build = Host.CreateDefaultBuilder(args)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureWebHostDefaults(builder =>
                     builder.UseKestrel()
                         .UseConfiguration(_configuration)
                         .UseStartup<TStartup>()
                 )
-                .UseSerilog()
-                .Build();
+                .UseSerilog();
 
-            _logger.Information("Web host ({ApplicationContext}) has configured", _appName);
+            _logger.Information("Base web host ({ApplicationContext}) has configured", _appName);
+            
+            for (var i = 0; i < uses.Length; i++)
+            {
+                _logger.Information($"Adding {i+1} use of {uses.Length}");
+                uses[i](build, configuration, logger);
+            }
+            
+            _logger.Information("Building web host ({ApplicationContext})...", _appName);
+            
+            _host = build.Build();
+
+            _logger.Information("Web host has built ({ApplicationContext})...", _appName);
         }
 
         public ElwarkHost<TStartup> PreRunBehavior(Action<IHost, IConfiguration, ILogger> behavior)

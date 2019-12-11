@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Elwark.Extensions.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
-using Serilog;
+using Microsoft.Extensions.Hosting;
 
 namespace Elwark.Extension.Sample
 {
@@ -9,6 +9,7 @@ namespace Elwark.Extension.Sample
     {
         public static async Task Main(string[] args) =>
             await new ElwarkHostBuilder("Example", args)
+                .Use((builder, configuration, logger) => builder.UseConsoleLifetime())
                 .CreateHost<Startup>()
                 .PreRunBehavior((host1, configuration, logger) =>
                 {

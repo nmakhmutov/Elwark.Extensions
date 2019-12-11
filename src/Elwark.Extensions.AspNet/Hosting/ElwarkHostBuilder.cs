@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Elwark.Extensions.AspNet.Hosting
@@ -12,9 +15,11 @@ namespace Elwark.Extensions.AspNet.Hosting
         private readonly string _environment;
         private IConfigurationBuilder _configurationBuilder;
         private LoggerConfiguration _loggerConfiguration;
+        private readonly IList<Action<IHostBuilder, IConfiguration, ILogger>> _uses;
 
         public ElwarkHostBuilder([NotNull] string appName, [NotNull] string[] args)
         {
+            _uses = new List<Action<IHostBuilder, IConfiguration, ILogger>>();
             _appName = appName;
             _args = args;
             _environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
@@ -62,6 +67,12 @@ namespace Elwark.Extensions.AspNet.Hosting
             return this;
         }
 
+        public ElwarkHostBuilder Use(Action<IHostBuilder, IConfiguration, ILogger> configure)
+        {
+            _uses.Add(configure);
+            return this;
+        }
+
         public ElwarkHost<TStartup> CreateHost<TStartup>()
             where TStartup : class
         {
@@ -70,7 +81,7 @@ namespace Elwark.Extensions.AspNet.Hosting
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
 
-            return new ElwarkHost<TStartup>(_appName, _args, configuration, logger);
+            return new ElwarkHost<TStartup>(_appName, _args, configuration, logger, _uses.ToArray());
         }
     }
 }
