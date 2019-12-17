@@ -9,6 +9,8 @@ namespace Elwark.Extension.Sample
     {
         public static async Task Main(string[] args) =>
             await new ElwarkHostBuilder("Example", args)
+                .UseDefaultConfiguration()
+                .UseConsoleLogger()
                 .Use((builder, configuration, logger) => builder.UseConsoleLifetime())
                 .CreateHost<Startup>()
                 .PreRunBehavior((host1, configuration, logger) =>

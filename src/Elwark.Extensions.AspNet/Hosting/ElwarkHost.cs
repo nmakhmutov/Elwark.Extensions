@@ -19,7 +19,7 @@ namespace Elwark.Extensions.AspNet.Hosting
         private readonly string _appName;
 
         public ElwarkHost([NotNull] string appName, [NotNull] string[] args, [NotNull] IConfiguration configuration,
-            [NotNull] ILogger logger, [NotNull] Action<IHostBuilder, IConfiguration, ILogger>[] uses)
+            [NotNull] ILogger logger, [NotNull] IReadOnlyList<Action<IHostBuilder, IConfiguration, ILogger>> hostExtensions)
         {
             _appName = appName;
             _configuration = configuration;
@@ -34,15 +34,14 @@ namespace Elwark.Extensions.AspNet.Hosting
                     builder.UseKestrel()
                         .UseConfiguration(_configuration)
                         .UseStartup<TStartup>()
-                )
-                .UseSerilog();
+                );
 
             _logger.Information("Base web host ({ApplicationContext}) has configured", _appName);
             
-            for (var i = 0; i < uses.Length; i++)
+            for (var i = 0; i < hostExtensions.Count; i++)
             {
-                _logger.Information($"Adding {i+1} use of {uses.Length}");
-                uses[i](build, configuration, logger);
+                _logger.Information($"Adding {i+1} extension of {hostExtensions.Count}");
+                hostExtensions[i](build, configuration, logger);
             }
             
             _logger.Information("Building web host ({ApplicationContext})...", _appName);

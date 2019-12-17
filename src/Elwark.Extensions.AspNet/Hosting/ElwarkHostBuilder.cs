@@ -13,75 +13,91 @@ namespace Elwark.Extensions.AspNet.Hosting
         private readonly string _appName;
         private readonly string[] _args;
         private readonly string _environment;
-        private IConfigurationBuilder _configurationBuilder;
-        private LoggerConfiguration _loggerConfiguration;
-        private readonly IList<Action<IHostBuilder, IConfiguration, ILogger>> _uses;
+
+        private readonly IList<Action<IHostBuilder, IConfiguration, ILogger>> _hostBuilderExtensions;
+
+        private IConfigurationBuilder? _configurationBuilder;
+        private LoggerConfiguration? _loggerConfiguration;
 
         public ElwarkHostBuilder([NotNull] string appName, [NotNull] string[] args)
         {
-            _uses = new List<Action<IHostBuilder, IConfiguration, ILogger>>();
             _appName = appName;
             _args = args;
             _environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-
-            _configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Environment.CurrentDirectory)
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{_environment}.json", true, true)
-                .AddEnvironmentVariables();
-
-            _loggerConfiguration = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Enrich.WithProperty("ApplicationContext", appName)
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate:
-                    "[{Timestamp:HH:mm:ss.fff} {ApplicationContext} {Level:u3}] {RequestId} {SourceContext:lj}{NewLine}{Message:lj}{NewLine}{Exception}"
-                );
+            _hostBuilderExtensions = new List<Action<IHostBuilder, IConfiguration, ILogger>>
+            {
+                (builder, _, __) => builder.UseSerilog()
+            };
         }
 
-        public ElwarkHostBuilder SetConfiguration(
-            [NotNull] Func<IConfigurationBuilder, ElwarkHostBuilderOptions, IConfigurationBuilder> configure)
+        public ElwarkHostBuilder UseDefaultLogger()
         {
-            if (configure == null)
-                throw new ArgumentNullException(nameof(configure));
-
-            var result = configure(_configurationBuilder, new ElwarkHostBuilderOptions(_appName, _args, _environment));
-
-            _configurationBuilder =
-                result ?? throw new ArgumentNullException(nameof(configure), "Configuration cannot return null value");
+            _loggerConfiguration = new LoggerConfiguration()
+                .Enrich.WithProperty("ApplicationContext", _appName)
+                .Enrich.FromLogContext();
 
             return this;
         }
 
-        public ElwarkHostBuilder SetLogger(
-            [NotNull] Func<LoggerConfiguration, ElwarkHostBuilderOptions, LoggerConfiguration> configure)
+        public ElwarkHostBuilder UseLogger(Action<LoggerConfiguration> builder)
         {
-            if (configure == null)
-                throw new ArgumentNullException(nameof(configure));
+            UseDefaultLogger();
+            builder(_loggerConfiguration!);
 
-            var result = configure(_loggerConfiguration, new ElwarkHostBuilderOptions(_appName, _args, _environment));
+            return this;
+        }
 
-            _loggerConfiguration =
-                result ?? throw new ArgumentNullException(nameof(configure), "Logger cannot return null value");
+        public ElwarkHostBuilder UseConsoleLogger()
+        {
+            UseLogger(configuration => configuration.WriteTo.Console(outputTemplate:
+                "[{Timestamp:HH:mm:ss.fff} {ApplicationContext} {Level:u3}] {RequestId} {SourceContext:lj} {Message:lj} {NewLine}{Exception}"
+            ));
 
+            return this;
+        }
+
+        public ElwarkHostBuilder UseDefaultConfiguration()
+        {
+            UseConfiguration(() =>
+                new ConfigurationBuilder()
+                    .SetBasePath(Environment.CurrentDirectory)
+                    .AddJsonFile("appsettings.json", false, true)
+                    .AddJsonFile($"appsettings.{_environment}.json", true, true)
+                    .AddEnvironmentVariables()
+            );
+
+            return this;
+        }
+
+        public ElwarkHostBuilder UseConfiguration(Func<IConfigurationBuilder> builder)
+        {
+            _configurationBuilder = builder();
             return this;
         }
 
         public ElwarkHostBuilder Use(Action<IHostBuilder, IConfiguration, ILogger> configure)
         {
-            _uses.Add(configure);
+            _hostBuilderExtensions.Add(configure);
             return this;
         }
 
         public ElwarkHost<TStartup> CreateHost<TStartup>()
             where TStartup : class
         {
+            if (_configurationBuilder is null)
+                throw new ArgumentException(
+                    $"Elwark host configuration cannot be null. Configure you service with {nameof(UseConfiguration)} or {nameof(UseDefaultConfiguration)}");
+
+            if (_loggerConfiguration is null)
+                throw new AggregateException(
+                    $"Elwark host logger cannot be null. Set logger for your service with {nameof(UseLogger)} or {nameof(UseDefaultLogger)}");
+
             var configuration = _configurationBuilder.Build();
             var logger = _loggerConfiguration
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
 
-            return new ElwarkHost<TStartup>(_appName, _args, configuration, logger, _uses.ToArray());
+            return new ElwarkHost<TStartup>(_appName, _args, configuration, logger, _hostBuilderExtensions.ToArray());
         }
     }
 }
