@@ -14,34 +14,32 @@ namespace Elwark.Extensions.AspNet
         public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder)
             where TContext : DbContext
         {
-            using (var scope = host.Services.CreateScope())
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+
+            var logger = services.GetRequiredService<ILogger<TContext>>();
+
+            var context = services.GetService<TContext>();
+            var contextName = typeof(TContext).Name;
+
+            try
             {
-                var services = scope.ServiceProvider;
+                logger.LogInformation("Migrating database associated with context {DbContextName}", contextName);
 
-                var logger = services.GetRequiredService<ILogger<TContext>>();
+                context.Database.Migrate();
 
-                var context = services.GetService<TContext>();
-                var contextName = typeof(TContext).Name;
+                logger.LogInformation("Migrated database associated with context {DbContextName}", contextName);
 
-                try
-                {
-                    logger.LogInformation("Migrating database associated with context {DbContextName}", contextName);
+                logger.LogInformation("Seeding database with context {DbContextName}", contextName);
 
-                    context.Database.Migrate();
+                seeder(context, services);
 
-                    logger.LogInformation("Migrated database associated with context {DbContextName}", contextName);
-
-                    logger.LogInformation("Seeding database with context {DbContextName}", contextName);
-
-                    seeder(context, services);
-
-                    logger.LogInformation("Seeded database with context {DbContextName}", contextName);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex,
-                        "An error occurred while migrating the database used on context {DbContextName}", contextName);
-                }
+                logger.LogInformation("Seeded database with context {DbContextName}", contextName);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex,
+                    "An error occurred while migrating the database used on context {DbContextName}", contextName);
             }
 
             return host;
