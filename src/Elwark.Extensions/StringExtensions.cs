@@ -19,14 +19,6 @@ namespace Elwark.Extensions
                 ? s
                 : char.ToLower(s[0]) + s.Substring(1);
 
-
-        public static TOut NullOrTransform<TIn, TOut>(this TIn value, Func<TIn, TOut> action)
-            where TIn : class
-            where TOut : class =>
-            value is null
-                ? null
-                : action(value);
-
         public static string Truncate(this string s, int maxLength)
         {
             if (string.IsNullOrEmpty(s) || maxLength <= 0)
