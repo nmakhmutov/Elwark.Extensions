@@ -10,11 +10,5 @@ namespace Elwark.Extensions
             value is null
                 ? null
                 : action(value);
-
-        public static T ThrowIfNull<T>(this T value, string paramName) where T : class =>
-            value ?? throw new ArgumentNullException(paramName);
-
-        public static T ThrowIfNull<T>(this T value, Func<Exception> func) where T : class =>
-            value ?? throw func();
     }
 }
