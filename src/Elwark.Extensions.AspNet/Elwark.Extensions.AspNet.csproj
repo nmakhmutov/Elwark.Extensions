@@ -17,25 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
-        <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-        <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
-        <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Elwark.Extensions\Elwark.Extensions.csproj" />
