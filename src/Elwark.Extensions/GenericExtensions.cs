@@ -5,7 +5,7 @@ namespace Elwark.Extensions
 {
     public static class GenericExtensions
     {
-        public static TOut NullOrTransform<TIn, TOut>(this TIn value, Func<TIn, TOut> action)
+        public static TOut? NullOrTransform<TIn, TOut>(this TIn value, Func<TIn, TOut> action)
             where TIn : class
             where TOut : class =>
             value is null
@@ -14,7 +14,9 @@ namespace Elwark.Extensions
 
         public static bool In<T>(this T source, params T[] values)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (source is null) 
+                throw new ArgumentNullException(nameof(source));
+            
             return values.Contains(source);
         }
 

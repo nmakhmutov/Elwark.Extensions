@@ -5,6 +5,7 @@
     <Description>Extension for Elwark projects</Description>
     <PackageProjectUrl>https://github.com/nmakhmutov/Elwark.Extensions</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
