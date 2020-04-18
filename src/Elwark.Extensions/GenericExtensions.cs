@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Elwark.Extensions
 {
@@ -10,5 +11,14 @@ namespace Elwark.Extensions
             value is null
                 ? null
                 : action(value);
+
+        public static bool In<T>(this T source, params T[] values)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            return values.Contains(source);
+        }
+
+        public static bool Between<T>(this T source, T lower, T upper) where T : IComparable<T> =>
+            source.CompareTo(lower) >= 0 && source.CompareTo(upper) < 0;
     }
 }
