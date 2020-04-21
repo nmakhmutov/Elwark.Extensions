@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
-namespace Elwark.Extensions.AspNet.HttpClientServiceName
+namespace Elwark.Extensions.AspNet.HttpClientAppName
 {
-    internal class ElwarkHttpClientServiceNameHandler : DelegatingHandler
+    internal class HttpClientAppNameHandler : DelegatingHandler
     {
-        private readonly ElwarkHttpClientServiceNameOptions _options;
+        private readonly HttpClientAppNameOptions _options;
 
-        public ElwarkHttpClientServiceNameHandler(IOptions<ElwarkHttpClientServiceNameOptions> options) =>
+        public HttpClientAppNameHandler(IOptions<HttpClientAppNameOptions> options) =>
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,

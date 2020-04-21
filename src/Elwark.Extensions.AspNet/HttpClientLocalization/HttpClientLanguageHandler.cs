@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
-namespace Elwark.Extensions.AspNet.Localization
+namespace Elwark.Extensions.AspNet.HttpClientLocalization
 {
     internal class HttpClientLanguageHandler : DelegatingHandler
     {
-        private readonly ElwarkHttpClientLanguageOptions _options;
+        private readonly HttpClientLanguageOptions _options;
 
-        public HttpClientLanguageHandler(IOptions<ElwarkHttpClientLanguageOptions> options) =>
+        public HttpClientLanguageHandler(IOptions<HttpClientLanguageOptions> options) =>
             _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,

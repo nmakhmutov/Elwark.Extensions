@@ -7,21 +7,20 @@ namespace Elwark.Extensions.AspNet.Localization
     public static class RequestLocalizationExtensions
     {
         public static IApplicationBuilder UseElwarkRequestLocalization(this IApplicationBuilder builder,
-            ElwarkLocalizationOption elwarkLocalization) =>
-            builder.UseRequestLocalization(options =>
+            ElwarkLocalizationOption options) =>
+            builder.UseRequestLocalization(x =>
             {
-                options.DefaultRequestCulture =
-                    new RequestCulture(elwarkLocalization.Default, elwarkLocalization.Default);
-                options.SupportedCultures = elwarkLocalization.Languages;
-                options.SupportedUICultures = elwarkLocalization.Languages;
-                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                x.DefaultRequestCulture = new RequestCulture(options.Default, options.Default);
+                x.SupportedCultures = options.Languages;
+                x.SupportedUICultures = options.Languages;
+                x.RequestCultureProviders = new List<IRequestCultureProvider>
                 {
-                    new ElwarkHeaderRequestCultureProvider(elwarkLocalization.Languages,
-                        elwarkLocalization.ParameterName),
+                    new ElwarkHeaderRequestCultureProvider(options.Languages,
+                        options.ParameterName),
                     new QueryStringRequestCultureProvider
                     {
-                        QueryStringKey = elwarkLocalization.ParameterName,
-                        UIQueryStringKey = elwarkLocalization.ParameterName
+                        QueryStringKey = options.ParameterName,
+                        UIQueryStringKey = options.ParameterName
                     }
                 };
             });

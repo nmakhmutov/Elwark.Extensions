@@ -1,6 +1,6 @@
 namespace Elwark.Extensions.AspNet.HttpClientLogging
 {
-    public class ElwarkHttpClientLoggingOptions
+    public class HttpClientLoggingOptions
     {
         public bool IsLoggingRequest { get; set; } = true;
 

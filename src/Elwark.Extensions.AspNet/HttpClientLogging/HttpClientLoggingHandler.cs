@@ -7,13 +7,13 @@ using Microsoft.Extensions.Options;
 
 namespace Elwark.Extensions.AspNet.HttpClientLogging
 {
-    internal class ElwarkHttpClientLoggingHandler : DelegatingHandler
+    internal class HttpClientLoggingHandler : DelegatingHandler
     {
-        private readonly ILogger<ElwarkHttpClientLoggingHandler> _logger;
-        private readonly ElwarkHttpClientLoggingOptions _options;
+        private readonly ILogger<HttpClientLoggingHandler> _logger;
+        private readonly HttpClientLoggingOptions _options;
 
-        public ElwarkHttpClientLoggingHandler(ILogger<ElwarkHttpClientLoggingHandler> logger,
-            IOptions<ElwarkHttpClientLoggingOptions> options)
+        public HttpClientLoggingHandler(ILogger<HttpClientLoggingHandler> logger,
+            IOptions<HttpClientLoggingOptions> options)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _options = options.Value ?? throw new ArgumentNullException(nameof(options));

@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace Elwark.Extensions.AspNet.Localization
+namespace Elwark.Extensions.AspNet.HttpClientLocalization
 {
-    public class ElwarkHttpClientLanguageOptions
+    public class HttpClientLanguageOptions
     {
         [Required]
         public string HeaderName { get; set; } = "Language";
