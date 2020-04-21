@@ -4,17 +4,15 @@ namespace Elwark.Extensions
 {
     public static class StringExtensions
     {
-        public static string? NullIfEmpty(this string s) =>
+        public static string? NullIfEmpty(this string? s) =>
             string.IsNullOrEmpty(s)
                 ? null
                 : s;
 
         public static string Capitalize(this string s) =>
-            string.IsNullOrEmpty(s)
-                ? s
-                : char.ToUpper(s[0]) + s.Substring(1).ToLower();
+            char.ToUpper(s[0]) + s.Substring(1).ToLower();
 
-        public static string Truncate(this string s, int maxLength)
+        public static string Truncate(this string? s, int maxLength)
         {
             if (string.IsNullOrEmpty(s) || maxLength <= 0)
                 return string.Empty;
@@ -24,7 +22,7 @@ namespace Elwark.Extensions
                 : s;
         }
 
-        public static Uri? ToUri(this string s) =>
+        public static Uri? ToUri(this string? s) =>
             string.IsNullOrEmpty(s)
                 ? null
                 : Uri.TryCreate(s, UriKind.RelativeOrAbsolute, out var result)

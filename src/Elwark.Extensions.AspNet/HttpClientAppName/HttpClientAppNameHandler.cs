@@ -16,7 +16,7 @@ namespace Elwark.Extensions.AspNet.HttpClientAppName
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            request.Headers.Add(_options.HeaderName, _options.ServiceName);
+            request.Headers.Add(_options.HeaderName, _options.AppName);
 
             return await base.SendAsync(request, cancellationToken);
         }
