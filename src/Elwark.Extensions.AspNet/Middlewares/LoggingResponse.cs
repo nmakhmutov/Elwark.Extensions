@@ -22,17 +22,20 @@ namespace Elwark.Extensions.AspNet.Middlewares
         {
             var bodyStream = context.Response.Body;
 
-            using var responseBodyStream = new MemoryStream();
+            await using var responseBodyStream = new MemoryStream();
             context.Response.Body = responseBodyStream;
 
             await _next(context);
 
             using var stream = new StreamReader(responseBodyStream);
             responseBodyStream.Seek(0, SeekOrigin.Begin);
-            var responseBody = stream.ReadToEnd();
+            var responseBody = await stream.ReadToEndAsync();
 
-            _logger.LogInformation("RESPONSE CONTENT FOR URL {url}:\n{@responseBody}",
-                context.Request.Path + context.Request.QueryString, responseBody);
+            _logger.LogInformation(
+                "RESPONSE CONTENT FOR URL {url}:\n{@responseBody}",
+                context.Request.Path + context.Request.QueryString,
+                responseBody
+            );
 
             responseBodyStream.Seek(0, SeekOrigin.Begin);
             await responseBodyStream.CopyToAsync(bodyStream);

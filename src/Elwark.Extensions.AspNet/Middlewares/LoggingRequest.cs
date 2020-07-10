@@ -22,14 +22,14 @@ namespace Elwark.Extensions.AspNet.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            using var requestBodyStream = new MemoryStream();
+            await using var requestBodyStream = new MemoryStream();
             var originalRequestBody = context.Request.Body;
 
             await context.Request.Body.CopyToAsync(requestBodyStream);
             requestBodyStream.Seek(0, SeekOrigin.Begin);
 
             using var requestStream = new StreamReader(requestBodyStream);
-            var requestBodyText = requestStream.ReadToEnd().NullIfEmpty();
+            var requestBodyText = await requestStream.ReadToEndAsync();
 
             var content = new StringBuilder();
             content.AppendLine($"REQUEST URL: {context.Request.Path + context.Request.QueryString}");
@@ -37,8 +37,8 @@ namespace Elwark.Extensions.AspNet.Middlewares
             content.AppendLine("HEADERS:");
 
             var headers = context.Request.Headers.Where(x => !string.IsNullOrEmpty(x.Value));
-            foreach (var header in headers)
-                content.AppendLine($"\t{header.Key}: {header.Value}");
+            foreach (var (header, value) in headers)
+                content.AppendLine($"{header}: {value}");
 
             content.Append($"REQUEST BODY: {requestBodyText ?? "NULL"}");
             _logger.LogInformation(content.ToString());
